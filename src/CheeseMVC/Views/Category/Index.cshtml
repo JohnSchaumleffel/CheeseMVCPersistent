@@ -1,0 +1,13 @@
+﻿@model List<CheeseMVC.Models.CheeseCategory>
+@using CheeseMVC.Models;
+
+@Model.Count
+
+<ul>
+    @foreach( var item in Model)
+    {
+        <li>@item.Name</li>
+    }
+</ul>
+
+<p><a asp-controller="Category" asp-action="Add">Add Category</a></p>
