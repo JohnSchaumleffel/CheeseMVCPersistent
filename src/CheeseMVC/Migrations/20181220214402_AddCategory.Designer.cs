@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseMVC.Migrations
 {
     [DbContext(typeof(CheeseDbContext))]
-    [Migration("20181220160746_AddCategory")]
+    [Migration("20181220214402_AddCategory")]
     partial class AddCategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,11 +52,50 @@ namespace CheeseMVC.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("CheeseMVC.Models.CheeseMenu", b =>
+                {
+                    b.Property<int>("CheeseID");
+
+                    b.Property<int>("MenuID");
+
+                    b.HasKey("CheeseID", "MenuID");
+
+                    b.HasIndex("MenuID");
+
+                    b.ToTable("CheeseMenus");
+                });
+
+            modelBuilder.Entity("CheeseMVC.Models.Menu", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Menus");
+                });
+
             modelBuilder.Entity("CheeseMVC.Models.Cheese", b =>
                 {
                     b.HasOne("CheeseMVC.Models.CheeseCategory", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CheeseMVC.Models.CheeseMenu", b =>
+                {
+                    b.HasOne("CheeseMVC.Models.Cheese", "Cheese")
+                        .WithMany()
+                        .HasForeignKey("CheeseID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("CheeseMVC.Models.Menu", "Menu")
+                        .WithMany()
+                        .HasForeignKey("MenuID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
