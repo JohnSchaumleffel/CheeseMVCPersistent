@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CheeseMVC.Migrations
 {
     [DbContext(typeof(CheeseDbContext))]
-    [Migration("20181220075851_AddCategory")]
+    [Migration("20181220160746_AddCategory")]
     partial class AddCategory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
